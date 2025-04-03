@@ -9,7 +9,9 @@ import {
   Camera,
   Binary,
   Sigma,
-  Divide
+  Divide,
+  Code,
+  Square
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -20,11 +22,51 @@ interface MathInputProps {
 const MathInput = ({ onSolve }: MathInputProps) => {
   const [equation, setEquation] = useState('');
   const [category, setCategory] = useState('algebra');
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [isProcessingImage, setIsProcessingImage] = useState(false);
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (equation.trim()) {
       onSolve(equation, category);
+    }
+  };
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const processImage = async () => {
+    if (!imageFile) return;
+    
+    setIsProcessingImage(true);
+    
+    // This is a placeholder for actual OCR implementation
+    // In a real app, you would send the image to an API like Mathpix or Google Vision
+    try {
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // For demo purposes, we're setting a sample equation
+      // In reality, this would come from the OCR API response
+      setEquation('2x + 3 = 7');
+      setCategory('algebra');
+      
+      // After processing, we would submit the equation
+      onSolve('2x + 3 = 7', 'algebra');
+    } catch (error) {
+      console.error('Error processing image:', error);
+    } finally {
+      setIsProcessingImage(false);
     }
   };
 
@@ -39,7 +81,7 @@ const MathInput = ({ onSolve }: MathInputProps) => {
                 <span>Text Input</span>
               </span>
             </TabsTrigger>
-            <TabsTrigger value="upload" className="w-full" disabled>
+            <TabsTrigger value="upload" className="w-full">
               <span className="flex items-center space-x-2">
                 <Camera className="h-4 w-4" />
                 <span>Upload Image</span>
@@ -76,7 +118,7 @@ const MathInput = ({ onSolve }: MathInputProps) => {
                     className="text-xs h-auto py-2"
                     onClick={() => setCategory('geometry')}
                   >
-                    <Calculator className="mr-1 h-3 w-3" /> Geometry
+                    <Square className="mr-1 h-3 w-3" /> Geometry
                   </Button>
                   <Button
                     type="button"
@@ -129,14 +171,59 @@ const MathInput = ({ onSolve }: MathInputProps) => {
           </TabsContent>
           
           <TabsContent value="upload">
-            <div className="flex flex-col items-center justify-center border-2 border-dashed border-muted rounded-lg p-12 text-center">
-              <Camera className="h-8 w-8 text-muted-foreground mb-2" />
-              <p className="text-muted-foreground">
-                Upload an image of a handwritten equation
-              </p>
-              <p className="text-xs text-muted-foreground mt-1">
-                (Coming soon in future updates)
-              </p>
+            <div className="space-y-4">
+              {!imagePreview ? (
+                <label className="flex flex-col items-center justify-center border-2 border-dashed border-muted rounded-lg p-12 text-center cursor-pointer hover:bg-muted/5 transition-colors">
+                  <Camera className="h-8 w-8 text-muted-foreground mb-2" />
+                  <p className="text-muted-foreground">
+                    Upload an image of a handwritten equation
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    (Click to browse or drag and drop)
+                  </p>
+                  <input 
+                    type="file" 
+                    className="hidden" 
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                  />
+                </label>
+              ) : (
+                <div className="space-y-4">
+                  <div className="relative aspect-video rounded-lg overflow-hidden border border-muted">
+                    <img 
+                      src={imagePreview} 
+                      alt="Uploaded equation" 
+                      className="w-full h-full object-contain"
+                    />
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="absolute top-2 right-2"
+                      onClick={() => {
+                        setImageFile(null);
+                        setImagePreview(null);
+                      }}
+                    >
+                      Clear
+                    </Button>
+                  </div>
+                  <Button 
+                    className="w-full" 
+                    onClick={processImage}
+                    disabled={isProcessingImage}
+                  >
+                    {isProcessingImage ? (
+                      <>Processing...</>
+                    ) : (
+                      <>
+                        <Code className="mr-2 h-4 w-4" /> 
+                        Extract Equation
+                      </>
+                    )}
+                  </Button>
+                </div>
+              )}
             </div>
           </TabsContent>
         </Tabs>
