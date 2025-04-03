@@ -7,10 +7,9 @@ import {
   Calculator, 
   ArrowRight, 
   Camera,
-  Function,
+  Binary,
   Sigma,
-  Divide,
-  SquareRoot
+  Divide
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -61,7 +60,7 @@ const MathInput = ({ onSolve }: MathInputProps) => {
                     className="text-xs h-auto py-2"
                     onClick={() => setCategory('algebra')}
                   >
-                    <Function className="mr-1 h-3 w-3" /> Algebra
+                    <Binary className="mr-1 h-3 w-3" /> Algebra
                   </Button>
                   <Button
                     type="button"
@@ -77,7 +76,7 @@ const MathInput = ({ onSolve }: MathInputProps) => {
                     className="text-xs h-auto py-2"
                     onClick={() => setCategory('geometry')}
                   >
-                    <SquareRoot className="mr-1 h-3 w-3" /> Geometry
+                    <Calculator className="mr-1 h-3 w-3" /> Geometry
                   </Button>
                   <Button
                     type="button"

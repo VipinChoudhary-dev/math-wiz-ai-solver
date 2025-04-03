@@ -4,11 +4,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   Calculator, 
-  Function, 
+  Binary, 
   Sigma, 
-  SquareRoot, 
+  CircleDot, 
   Divide, 
-  Binary
+  ArrowRight
 } from 'lucide-react';
 import MathDisplay from '@/components/math/MathDisplay';
 
@@ -26,7 +26,7 @@ const Topics = () => {
         <Tabs defaultValue="algebra" className="w-full">
           <TabsList className="grid grid-cols-2 md:grid-cols-5 w-full">
             <TabsTrigger value="algebra" className="flex items-center space-x-2">
-              <Function className="h-4 w-4" />
+              <Binary className="h-4 w-4" />
               <span>Algebra</span>
             </TabsTrigger>
             <TabsTrigger value="calculus" className="flex items-center space-x-2">
@@ -34,11 +34,11 @@ const Topics = () => {
               <span>Calculus</span>
             </TabsTrigger>
             <TabsTrigger value="geometry" className="flex items-center space-x-2">
-              <SquareRoot className="h-4 w-4" />
+              <CircleDot className="h-4 w-4" />
               <span>Geometry</span>
             </TabsTrigger>
             <TabsTrigger value="trigonometry" className="flex items-center space-x-2">
-              <Binary className="h-4 w-4" />
+              <ArrowRight className="h-4 w-4" />
               <span>Trigonometry</span>
             </TabsTrigger>
             <TabsTrigger value="statistics" className="flex items-center space-x-2">

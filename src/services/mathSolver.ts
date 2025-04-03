@@ -1,4 +1,3 @@
-
 import * as math from 'mathjs';
 
 interface Step {
@@ -51,7 +50,7 @@ export const solveMathProblem = (problem: string, category: string): SolutionRes
         if (problem.includes('x')) {
           graphData = {
             equation: problem,
-            domain: [-10, 10],
+            domain: [-10, 10] as [number, number],
           };
         }
       } catch (error) {
@@ -144,7 +143,7 @@ const solveLinearEquation = (problem: string): SolutionResult => {
     
     const graphData = {
       equation: `${a}*x + ${b}`,
-      domain: [-10, 10],
+      domain: [-10, 10] as [number, number],
     };
     
     return { steps, result, graphData };
@@ -278,7 +277,7 @@ const solveAlgebraicProblem = (problem: string): SolutionResult => {
       // Graph the quadratic
       const graphData = {
         equation: `${a}*x^2 + ${b}*x + ${c}`,
-        domain: [-10, 10],
+        domain: [-10, 10] as [number, number],
       };
       
       return { steps, result, graphData };
@@ -311,7 +310,7 @@ const solveAlgebraicProblem = (problem: string): SolutionResult => {
       result: `${evaluated}`,
       graphData: problem.includes('x') ? {
         equation: problem,
-        domain: [-10, 10],
+        domain: [-10, 10] as [number, number],
       } : undefined,
     };
   } catch (error) {
@@ -372,7 +371,7 @@ const solveCalculusProblem = (problem: string): SolutionResult => {
           result,
           graphData: {
             equation: `${newCoefficient}*x^${newPower}`,
-            domain: [-5, 5],
+            domain: [-5, 5] as [number, number],
           },
         };
       }
@@ -390,7 +389,7 @@ const solveCalculusProblem = (problem: string): SolutionResult => {
           result: `f'(x) = \\cos(x)`,
           graphData: {
             equation: 'cos(x)',
-            domain: [-5, 5],
+            domain: [-5, 5] as [number, number],
           },
         };
       }
@@ -407,7 +406,7 @@ const solveCalculusProblem = (problem: string): SolutionResult => {
           result: `f'(x) = -\\sin(x)`,
           graphData: {
             equation: '-sin(x)',
-            domain: [-5, 5],
+            domain: [-5, 5] as [number, number],
           },
         };
       }
@@ -456,7 +455,7 @@ const solveCalculusProblem = (problem: string): SolutionResult => {
           result,
           graphData: {
             equation: `${newCoefficient}*x^${newPower}`,
-            domain: [-5, 5],
+            domain: [-5, 5] as [number, number],
           },
         };
       }
@@ -474,7 +473,7 @@ const solveCalculusProblem = (problem: string): SolutionResult => {
           result: `F(x) = -\\cos(x) + C`,
           graphData: {
             equation: '-cos(x)',
-            domain: [-5, 5],
+            domain: [-5, 5] as [number, number],
           },
         };
       }
@@ -491,7 +490,7 @@ const solveCalculusProblem = (problem: string): SolutionResult => {
           result: `F(x) = \\sin(x) + C`,
           graphData: {
             equation: 'sin(x)',
-            domain: [-5, 5],
+            domain: [-5, 5] as [number, number],
           },
         };
       }
@@ -533,7 +532,7 @@ const solveTrigonometryProblem = (problem: string): SolutionResult => {
       result: `1`,
       graphData: {
         equation: 'sin(x)^2 + cos(x)^2',
-        domain: [0, 2 * Math.PI],
+        domain: [0, 2 * Math.PI] as [number, number],
       },
     };
   }
@@ -552,7 +551,7 @@ const solveTrigonometryProblem = (problem: string): SolutionResult => {
       result: `${evaluated}`,
       graphData: problem.includes('x') ? {
         equation: problem,
-        domain: [0, 2 * Math.PI],
+        domain: [0, 2 * Math.PI] as [number, number],
       } : undefined,
     };
   } catch (error) {
